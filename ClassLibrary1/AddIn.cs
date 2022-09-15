@@ -1,9 +1,13 @@
-﻿using CodeStack.SwEx.AddIn;
+﻿using ClassLibrary1.Properties;
+using CodeStack.SwEx.AddIn;
 using CodeStack.SwEx.AddIn.Attributes;
+using CodeStack.SwEx.AddIn.Enums;
+using CodeStack.SwEx.Common.Attributes;
 using SolidWorks.Interop.sldworks;
 using SolidWorks.Interop.swconst;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,15 +19,24 @@ namespace Primitives
     [AutoRegister("Geometry Primitives", "Create Geometry Primitives")]
     public class AddIn : SwAddInEx
     {
+        [Title("Primitives")]
+        [Description("Creates geometry primitives")]
+        [Icon (typeof (Resources),nameof(Resources.cylinder))]
+
         private enum Commands_e
         {
+            [Title("Create Cylinder")]
+            [Description("Creates extruded cylinder")]
+            [Icon(typeof(Resources), nameof(Resources.cylinder))]
+            [CommandItemInfo(true,true,swWorkspaceTypes_e.Part,true)]
             CreateCylinder,
+
             CreateBox
         }
 
         public override bool OnConnect()
         {
-            AddCommandGroup<Commands_e>(OnButtonClick);
+            AddCommandGroup<Commands_e>(OnButtonClick,OnButtonEnable);
             return true;
         }
 
@@ -45,6 +58,42 @@ namespace Primitives
             catch( Exception ex)
             {
                 App.SendMsgToUser2(ex.Message, (int)swMessageBoxIcon_e.swMbStop, (int)swMessageBoxBtn_e.swMbOk);
+            }
+        }
+
+        private void OnButtonEnable(Commands_e cmd, ref CommandItemEnableState_e state)
+        {
+            switch (cmd)
+            {
+                case Commands_e.CreateBox:
+                case Commands_e.CreateCylinder:
+                    var model = App.IActiveDoc2;
+
+                    state = CommandItemEnableState_e.DeselectDisable;
+
+                    if (model is PartDoc)
+                    {
+                        var selType = (swSelectType_e)model.ISelectionManager.GetSelectedObjectType3(1, -1);
+
+                        if (selType == swSelectType_e.swSelDATUMPLANES)
+                        {
+                            state = CommandItemEnableState_e.DeselectEnable;
+                        }
+                        else if (selType == swSelectType_e.swSelFACES)
+                        {
+                            var face = model.ISelectionManager.GetSelectedObject6(1, -1) as IFace2;
+
+                            if (face.IGetSurface().IsPlane())
+                            {
+                                state = CommandItemEnableState_e.DeselectEnable;
+                            }
+                        }
+                    }
+                    else
+                    {
+                       
+                    }
+                    break;
             }
         }
 
