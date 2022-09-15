@@ -13,3 +13,4 @@ C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\Primitives.csp
 C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\Primitives.csproj.CopyComplete
 C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\ClassLibrary1.dll
 C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\Primitives.csproj.AssemblyReference.cache
