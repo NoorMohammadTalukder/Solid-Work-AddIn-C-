@@ -1,0 +1,15 @@
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\ClassLibrary1.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\ClassLibrary1.pdb
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\ClassLibrary1.tlb
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\CodeStack.SwEx.AddIn.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\CodeStack.SwEx.Common.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\SolidWorks.Interop.sldworks.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\SolidWorks.Interop.swconst.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\SolidWorks.Interop.swpublished.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\SolidWorksTools.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\CodeStack.SwEx.AddIn.xml
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\bin\Debug\CodeStack.SwEx.Common.xml
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\Primitives.csproj.CoreCompileInputs.cache
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\Primitives.csproj.CopyComplete
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\ClassLibrary1.dll
+C:\Users\sadim\source\repos\ClassLibrary1\ClassLibrary1\obj\Debug\ClassLibrary1.pdb
