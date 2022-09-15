@@ -29,15 +29,22 @@ namespace Primitives
 
         private void OnButtonClick(Commands_e cmd)
         {
-            switch(cmd)
+            try
             {
-                case Commands_e.CreateBox:
-                    //ToDo: Create a Box
-                    break;
-                case Commands_e.CreateCylinder:
-                    //Todo:  Create a Cylinder
-                    CreateCylinder(0.01,0.01);
-                    break;
+                switch (cmd)
+                {
+                    case Commands_e.CreateBox:
+                        //ToDo: Create a Box
+                        break;
+                    case Commands_e.CreateCylinder:
+                        //Todo:  Create a Cylinder
+                        CreateCylinder(0.01, 0.01);
+                        break;
+                }
+            }
+            catch( Exception ex)
+            {
+                App.SendMsgToUser2(ex.Message, (int)swMessageBoxIcon_e.swMbStop, (int)swMessageBoxBtn_e.swMbOk);
             }
         }
 
@@ -45,13 +52,25 @@ namespace Primitives
         {
             var sketch = CreateSketch(diam / 2);
             
-            (sketch as IFeature).Select2(false, 0);
+            if((sketch as IFeature).Select2(false, 0))
+            {
+                var feat= App.IActiveDoc2.FeatureManager.FeatureExtrusion3(true, false, false,
+                            (int)swEndConditions_e.swEndCondBlind, (int)swEndConditions_e.swEndCondBlind,
+                            height, 0, false, false, false, false, 0, 0,
+                            false, false, false, false, false, false, false,
+                            (int)swStartConditions_e.swStartSketchPlane, 0, false);
+               
+                if (feat == null)
+                {
+                    throw new NullReferenceException("Failed to create extrusion");
+                }
+            }
+            else
+            {
+                throw new Exception("Failed to create base sketch");
+            }
 
-            App.IActiveDoc2.FeatureManager.FeatureExtrusion3(true, false, false,
-                (int)swEndConditions_e.swEndCondBlind, (int)swEndConditions_e.swEndCondBlind, 
-                height, 0, false, false, false, false, 0, 0, 
-                false, false, false, false, false, false, false, 
-                (int)swStartConditions_e.swStartSketchPlane, 0, false);
+            
         }
 
         private ISketch CreateSketch( double radius)
@@ -68,7 +87,12 @@ namespace Primitives
 
             var sketch = skMgr.ActiveSketch;
 
-            skMgr.CreateCircleByRadius(0, 0, 0, radius);
+            var arc = skMgr.CreateCircleByRadius(0, 0, 0, radius);
+
+            if (arc == null)
+            {
+                throw new NullReferenceException("Failed to create skecth segment");
+            }
 
             skMgr.AddToDB = false;
             skMgr.InsertSketch(true);
