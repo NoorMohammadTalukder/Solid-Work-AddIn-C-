@@ -31,6 +31,10 @@ namespace Primitives
             [CommandItemInfo(true,true,swWorkspaceTypes_e.Part,true)]
             CreateCylinder,
 
+            [Title("Create Box")]
+            [Description("Creates extruded box")]
+            [Icon(typeof(Resources), nameof(Resources.box))]
+            [CommandItemInfo(true, true, swWorkspaceTypes_e.Part, true)]
             CreateBox
         }
 
@@ -47,11 +51,12 @@ namespace Primitives
                 switch (cmd)
                 {
                     case Commands_e.CreateBox:
+                        App.IActiveDoc2.CreateBox(0.01, 0.02, 0.03);
                         //ToDo: Create a Box
                         break;
                     case Commands_e.CreateCylinder:
                         //Todo:  Create a Cylinder
-                        CreateCylinder(0.01, 0.01);
+                        App.IActiveDoc2.CreateCylinder(0.01, 0.01);
                         break;
                 }
             }
@@ -66,6 +71,9 @@ namespace Primitives
             switch (cmd)
             {
                 case Commands_e.CreateBox:
+                   
+                    break;
+
                 case Commands_e.CreateCylinder:
                     var model = App.IActiveDoc2;
 
@@ -97,58 +105,6 @@ namespace Primitives
             }
         }
 
-        private void CreateCylinder (double diam, double height)
-        {
-            var sketch = CreateSketch(diam / 2);
-            
-            if((sketch as IFeature).Select2(false, 0))
-            {
-                var feat= App.IActiveDoc2.FeatureManager.FeatureExtrusion3(true, false, false,
-                            (int)swEndConditions_e.swEndCondBlind, (int)swEndConditions_e.swEndCondBlind,
-                            height, 0, false, false, false, false, 0, 0,
-                            false, false, false, false, false, false, false,
-                            (int)swStartConditions_e.swStartSketchPlane, 0, false);
-               
-                if (feat == null)
-                {
-                    throw new NullReferenceException("Failed to create extrusion");
-                }
-            }
-            else
-            {
-                throw new Exception("Failed to create base sketch");
-            }
-
-            
-        }
-
-        private ISketch CreateSketch( double radius)
-        {
-         
-
-
-            var model = App.IActiveDoc2;
-
-            var skMgr = model.SketchManager;
-
-            skMgr.InsertSketch(true);
-            skMgr.AddToDB = true;
-
-            var sketch = skMgr.ActiveSketch;
-
-            var arc = skMgr.CreateCircleByRadius(0, 0, 0, radius);
-
-            if (arc == null)
-            {
-                throw new NullReferenceException("Failed to create skecth segment");
-            }
-
-            skMgr.AddToDB = false;
-            skMgr.InsertSketch(true);
-
-            return sketch;
-
-
-        }
+       
     }
 }
